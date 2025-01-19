@@ -31,15 +31,15 @@ const authMiddleware = (req, res, next) => {
     console.log('┌' + '─'.repeat(98) + '┐');
 
     // Skip authentication for OPTIONS requests
-    if (req.method === 'OPTIONS') {
-        console.log('│ ℹ️  Skipping auth for OPTIONS request'.padEnd(99) + '│');
-        console.log('└' + '─'.repeat(98) + '┘');
-        // Add CORS headers for OPTIONS
-        res.setHeader('Access-Control-Allow-Origin', '*');
-        res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
-        res.setHeader('Access-Control-Allow-Headers', 'authorization, content-type');
-        return res.sendStatus(200);
-    }
+    // if (req.method === 'OPTIONS') {
+    //     console.log('│ ℹ️  Skipping auth for OPTIONS request'.padEnd(99) + '│');
+    //     console.log('└' + '─'.repeat(98) + '┘');
+    //     // Add CORS headers for OPTIONS
+    //     res.setHeader('Access-Control-Allow-Origin', '*');
+    //     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
+    //     res.setHeader('Access-Control-Allow-Headers', 'authorization, content-type');
+    //     return res.sendStatus(200);
+    // }
 
     // Check Bearer token
     const bearerToken = req.headers['authorization'];
