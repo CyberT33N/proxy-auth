@@ -30,26 +30,16 @@ const authMiddleware = (req, res, next) => {
     console.log('\n🔐 Authentication Check');
     console.log('┌' + '─'.repeat(98) + '┐');
 
-    // // Check Basic Auth
-    // const authHeader = req.headers.authorization;
-    // if (!authHeader || !authHeader.startsWith('Basic ')) {
-    //     console.log('│ ❌ Basic Auth Header missing or invalid'.padEnd(99) + '│');
-    //     console.log('└' + '─'.repeat(98) + '┘');
-    //     res.setHeader('WWW-Authenticate', 'Basic');
-    //     return res.status(401).send('Authentication required');
-    // }
-
-    // const base64Credentials = authHeader.split(' ')[1];
-    // const credentials = Buffer.from(base64Credentials, 'base64').toString('ascii');
-    // const [username, password] = credentials.split(':');
-
-    // // Check if credentials match
-    // if (username !== 'test' || password !== 'testRRfsewefwefghhHHwefwqfe') {
-    //     console.log(`│ ❌ Invalid credentials for user: ${username}`.padEnd(99) + '│');
-    //     console.log('└' + '─'.repeat(98) + '┘');
-    //     return res.status(401).send('Invalid credentials');
-    // }
-    // console.log(`│ ✅ Basic Auth successful for user: ${username}`.padEnd(99) + '│');
+    // Skip authentication for OPTIONS requests
+    if (req.method === 'OPTIONS') {
+        console.log('│ ℹ️  Skipping auth for OPTIONS request'.padEnd(99) + '│');
+        console.log('└' + '─'.repeat(98) + '┘');
+        // Add CORS headers for OPTIONS
+        res.setHeader('Access-Control-Allow-Origin', '*');
+        res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
+        res.setHeader('Access-Control-Allow-Headers', 'authorization, content-type');
+        return res.sendStatus(200);
+    }
 
     // Check Bearer token
     const bearerToken = req.headers['authorization'];
