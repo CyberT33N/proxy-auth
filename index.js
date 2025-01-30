@@ -4,6 +4,7 @@ const app = express();
 require('dotenv').config();
 
 const bearerPassword = process.env.BEARER_PASSWORD;
+const PORT = process.env.PORT;
 
 // Custom logging function
 const logRequest = (req, res, next) => {
@@ -107,7 +108,6 @@ app.use(logRequest);
 app.use(authMiddleware);
 app.use('/', createProxyMiddleware(proxyOptions));
 
-const PORT = 3000;
 app.listen(PORT, () => {
     console.log('\n' + '═'.repeat(100));
     console.log('🚀 Proxy server is running'.padEnd(99) + '│');
